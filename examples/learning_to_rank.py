@@ -122,9 +122,8 @@ return_series_agg
 # return_series_agg_shift = return_series_agg.shift(-1)
 return_series_agg_shift = return_series_agg   # ~~~~~~~~~~~~~~~~~~~~~~~~
 
-# Stack the returns (from wide to long format)
-ret = return_series_agg_shift.unstack().reorder_levels([1, 0]).dropna()
-ret.name = 'ret'
+# Stack returns from wide to long format and drop missing values
+ret = return_series_agg_shift.stack(dropna=True).rename('ret')
 ret
 
 # Merge the returns and the features dataframes
